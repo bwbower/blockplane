@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Online Forum</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/whitespace-reset.css"/>
+    <link rel="stylesheet" href="/stylesheets/application.css"/>
+  </head>
+  <body>
+    <header>
+      <div class="navigation">
+        <a class="navigation" href="/profile">Profile</a>
+        <a class="navigation" href="/home/0">Home</a>
+        <a class="navigation" href="/user/logout">Logout</a>
+      </div>
+      <h1>Online Forum</h1>
+    </header>
+
+    <% if session[:error] %>
+      <div class="flash error">
+        <p><%= session.delete(:error) %></p>
+      </div>
+    <% end %>
+
+    <% if session[:success] %>
+      <div class="flash success">
+        <p><%= session.delete(:success) %></p>
+      </div>
+    <% end %>
+
+    <main>
+      <%== yield %>
+    </main>
+  </body>
+</html>

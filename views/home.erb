@@ -1,0 +1,31 @@
+<div class="home">
+  <h1>Topics:</h1>
+  <%# Add new topic %>
+  <h1 class="add"><a class="add" href="/topics/add">Create Topic</a></h1>
+</div>
+
+<%# List Topics %>
+<div>
+  <ul>
+    <% @five_topics.each do |topic| %>
+      <li class="comment">
+        <dt>
+          <a href="/topics/<%= topic[:id] %>/page/0"><%= topic[:title] %></a>
+        </dt>
+        <dd class="comment">Posted By: <%= topic[:username] %></dd>
+        <dd class="comment"><%= topic[:comments_count] %> Comments</p>
+        <dd class="comment">Posted On: <%= topic[:created_on] %></p>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<%# Link to Previous and Next Pages, If They Exist %>
+<footer>
+  <% if params[:page].to_i > 0 %>
+    <a href="/home/<%= (params[:page].to_i - 1) %>"><< Previous</a>
+  <% end %>
+  <% if homepage_exists?(params[:page].to_i + 1) %>
+    <a href="/home/<%= (params[:page].to_i + 1) %>">Next >></a>
+  <% end %>
+</footer>

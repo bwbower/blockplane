@@ -1,0 +1,8 @@
+<form action="/topics/<%= @topic[:id] %>/edit" method="post">
+  <label for="title">Title</label>
+    <input required id="title" name="title" type="text" value="<%= if params[:title] then params[:title] else @topic[:title] end %>">
+  <label for="content">Content</label>
+    <textarea required id="content" name="content" rows="5" cols="30"><%= if params[:content] then params[:content] else @topic[:content] end %></textarea>
+  <button type="submit">Submit</button>
+  <button type="submit" formnovalidate formmethod="post" formaction="/topics/<%= @topic[:id] %>/delete">Delete</button>
+</form>

@@ -1,0 +1,58 @@
+<%# Single Topic Page %>
+<h1 class="topic">
+  <%= @topic[:title] %>
+</h1>
+
+<div>
+  <dl class="topic">
+    <%# Post topic and topic metadata %>
+    <dt class="topic"><%= @topic[:content] %></dt>
+    <dd class="topic">Posted by: <%= @username %></dd>
+    <dd class="topic">Posted on: <%= @topic[:created_on] %></dd>
+    <%# Allow user to edit topic if they own it %>
+    <% if @username == session[:username] %>
+      <dd class="topic">
+        <a class="edit" href="/topics/<%= @topic[:id] %>/edit">Edit</a>
+      </dd>
+    <% end %>
+  </dl>
+
+  <%# Allow user to post new comment %>
+  <form action="/topics/<%= @topic[:id] %>/add" method="post">
+    <label for="comment">Comment</label>
+      <textarea required id="comment" name="content" placeholder="Say something..." rows="5" cols="6"></textarea>
+    <button type="submit">Submit</button>
+  </form>
+
+  <%# List comments with pagination %>
+  <ul class="comment">
+    <% @five_comments.each do |comment| %>
+      <%# Get name of user who posted each comment %>
+      <% sql = "SELECT username FROM users WHERE id = $1" %>
+      <% result = @storage.query(sql, comment["user_id"]) %>
+      <% username = result.first["username"] %>
+      <li class="comment">
+        <dl>
+          <dt class="comment content"><%= comment["content"] %></dd>
+          <dd class="comment tag">Posted by: <%= username %></dd>
+          <dd class="comment tag">Posted on: <%= comment["created_on"] %></dd>
+          <%# Allow user to edit comment if they own it %>
+          <% if username == session[:username] %>
+            <dd class="comment">
+              <a class="edit" href="/topics/<%= @topic[:id] %>/comments/<%= comment["id"] %>">Edit</a>
+            </dd>
+          <% end %>
+        </dl>
+      <li>
+    <% end %>
+  </ul>
+
+  <%# Link to previous and next pages, if they exist %>
+  <footer>
+    <% if params[:page].to_i > 0 %>
+      <a href="/topics/<%= @topic[:id] %>/page/<%= (params[:page].to_i - 1) %>"><< Previous</a>
+    <% end %>
+    <% unless @storage.five_comments(@topic[:id], ((params[:page].to_i + 1) * 5)).ntuples == 0 %>
+      <a href="/topics/<%= @topic[:id] %>/page/<%= (params[:page].to_i + 1) %>">Next >></a>
+    <% end %>
+  </footer>

@@ -1,0 +1,7 @@
+<form action="/topics/add" method="post">
+  <label for="title">Title</label>
+    <input required id="title" name="title" type="text" placeholder="What is this all about?" <%= if params[:title] then "value='#{params[:title]}'" end %>>
+  <label for="content">Content</label>
+    <textarea required id="content" name="content" placeholder="What do you have to say about it?" rows="5" cols="30"><%= if params[:content] then params[:content] end %></textarea>
+  <button type="submit">Submit</button>
+</form>

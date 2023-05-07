@@ -1,0 +1,7 @@
+#! /bin/bash
+
+# Resets database
+dropdb forum
+createdb forum
+psql forum < db/schema.sql
+psql forum < db/populate.sql

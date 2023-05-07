@@ -1,0 +1,41 @@
+<h1>You are logged in as <%= session[:username] %></h1>
+
+<%# List topics created by user %>
+<div>
+  <h2>Your Topics: </h2>
+    <ul>
+      <% if @topics.ntuples == 0 %>
+        <li>You haven't posted any topics yet!</li> 
+      <% else %>
+        <% @topics.each do |topic| %>
+          <li>
+            <a href="/topics/<%= topic["id"] %>/page/0"><%= topic["title"] %></a>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+</div>
+
+<%# List all comments created by user %>
+<div>
+  <h2>Your Comments:</h2>
+  <ul>
+    <% if @comments.ntuples == 0 %>
+      <li>You haven't posted any comments yet!</li>
+    <% else %>
+      <% @comments.each do |comment| %>
+        <li>
+          <% comment_topic = @storage.get_topic_from_comment_id(comment["id"]) %>
+          <% comment_content = comment["content"].split(' ')[0..4].join(' ') %>
+          <% comment_page = get_page_of_comment(comment["id"], comment_topic["id"]) %>
+          <%# Print first four words of comment -- if more than four words, use ellipsis %>
+          <%# Link to specific page of topic where comment appears %>
+          <p>
+            You commented "<%= comment_content %><% if comment["content"].split(' ')[5] != nil %>...<% end %>"
+            on <a href="/topics/<%= comment["topic_id"] %>/page/<%= comment_page %>"><%= comment_topic["title"] %></a>
+          </p>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

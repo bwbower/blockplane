@@ -1,0 +1,6 @@
+<form action="/topics/<%= params[:id] %>/comments/<%= params[:comment_id] %>" method="post">
+  <label for="content">Content</label>
+    <textarea required id="content" name="content" rows="5" cols="30"><%= if params[:content] then params[:content] else @comment["content"] end %></textarea>
+  <button type="submit">Submit</button>
+  <button type="submit" formnovalidate formmethod="post" formaction="/topics/<%= params[:id] %>/comments/<%= params[:comment_id] %>/delete">Delete</button>
+</form>
