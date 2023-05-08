@@ -7,6 +7,8 @@ COPY . .
 RUN gem install bundler:2.3.18
 RUN apk add postgresql postgresql-dev postgresql-client
 RUN bundle install
+RUN sudo service postgresql start
+RUN ./db/reset
 
 EXPOSE 4567
 
