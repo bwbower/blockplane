@@ -9,7 +9,10 @@ require_relative "postgres_api.rb"
 # ***** CONFIGURATION *****
 
 configure do
-  enable :sessions
+  # Enable sessions
+  use Rack::Session::Cookie, :key => 'rack.session',
+                             :path => '/',
+                             :secret => SecureRandom.hex(64)
 
   # If session_secret is not set in ENV, generate one with SecureRandom
   set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
