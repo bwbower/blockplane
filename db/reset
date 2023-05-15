@@ -4,4 +4,4 @@
 dropdb forum
 createdb forum
 psql forum < db/schema.sql
-psql forum < db/populate.sql
+# psql forum < db/populate.sql

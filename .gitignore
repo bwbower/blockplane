@@ -1,0 +1,8 @@
+db/data
+nohup.out
+logfile
+Dockerfile
+docker-compose.yaml
+blockplane-td.json
+.aws
+.github

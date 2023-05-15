@@ -2,6 +2,7 @@ require "sinatra"
 require "sinatra/content_for"
 require "tilt/erubis"
 require "securerandom"
+require "pry"
 
 require_relative "postgres_api.rb"
 
@@ -228,6 +229,7 @@ end
 
 # Single Topic Page
 get "/topics/:id/page/:page" do
+  binding.pry
   logged_in?
   topic_exists?(params[:id])
   comments_page_exists?(params[:id], params[:page])
@@ -251,6 +253,7 @@ end
 
 # Add Topic Procedure
 post "/topics/add" do
+  binding.pry
   logged_in?
   if !valid_title?(params[:title]) || !valid_content?(params[:content])
     erb :add_topic, layout: :layout

@@ -5,6 +5,8 @@ services:
     restart: always
     volumes: 
       - /var/lib/postgresql/data
+    networks:
+      - blocknet
     ports:
       - "5432:5432"
     environment:
@@ -16,3 +18,10 @@ services:
     restart: always
     depends_on:
       - db
+    networks:
+      - blocknet
+    ports:
+      - "8080:8080"
+networks:
+  blocknet:
+

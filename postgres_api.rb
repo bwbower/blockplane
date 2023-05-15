@@ -2,7 +2,7 @@ require "pg"
 
 class ApplicationController
   def initialize(logger)
-    @db = PG.connect(dbname: "forum") 
+    @db = PG.connect(host: "", port: 5432, dbname: "forum", user: "postgres", password: "") 
     @logger = logger
   end
 
@@ -97,8 +97,8 @@ class ApplicationController
   def single_topic(topic_id)
     sql = "SELECT t.*, u.username, count(c.*) AS comments_count
              FROM topics t
-             JOIN users u ON u.id = t.user_id
-             JOIN comments c ON t.id = c.topic_id
+             FULL JOIN users u ON u.id = t.user_id
+             FULL JOIN comments c ON t.id = c.topic_id
             WHERE t.id = $1
             GROUP BY t.id, u.username"
     result = query(sql, topic_id)
@@ -109,8 +109,8 @@ class ApplicationController
   def five_topics(offset)
     sql = "SELECT t.*, u.username, count(c.*) AS comments_count
               FROM topics t
-              JOIN users u ON u.id = t.user_id
-              JOIN comments c ON t.id = c.topic_id
+              FULL JOIN users u ON u.id = t.user_id
+              FULL JOIN comments c ON t.id = c.topic_id
              GROUP BY t.id, u.username
              ORDER BY created_on
              LIMIT 5
