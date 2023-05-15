@@ -44,7 +44,7 @@ VALUES
 
 
 -- Insert the conversations as topics and comments
-INSERT INTO topics (user_id, title, content, created_on)
+INSERT INTO topics (user_id, title, content)
 VALUES
     (9, 'Beginner-Friendly Woodworking Projects', 'Hi everyone! I''m new to woodworking and looking for some beginner-friendly project ideas. Any suggestions?'),
     (2, 'Recommendations for a Reliable Table Saw', 'Hey, fellow woodworkers! I''m thinking of investing in a table saw. Any recommendations for a reliable model?'),
@@ -55,7 +55,7 @@ VALUES
     (7, 'Getting Started with Wood Carving', 'Does anyone have experience with wood carving? I''d like to give it a try. Where should I start?'),
     (8, 'Chisel Sharpening Techniques', 'I''m having trouble sharpening my chisels. Any sharpening techniques you can recommend?');
 
-INSERT INTO comments (user_id, topic_id, content, created_on)
+INSERT INTO comments (user_id, topic_id, content)
 VALUES
     (2, 1, 'Welcome! How about starting with a simple wooden cutting board? It''s a great way to practice basic woodworking skills.'),
     (3, 1, 'I agree. Another idea could be building a small shelf or a jewelry box. They''re relatively easy and practical projects.'),
